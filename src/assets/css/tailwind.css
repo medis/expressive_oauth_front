@@ -1,0 +1,36 @@
+@tailwind preflight;
+@tailwind components;
+@tailwind utilities;
+
+html, body {
+    height: 100%;
+}
+
+body {
+    background: #dae1e7;
+}
+
+.label {
+    @apply block;
+    @apply text-grey-darker;
+    @apply text-sm;
+    @apply font-bold;
+    @apply mb-2;
+}
+
+.input {
+    @apply shadow;
+    @apply appearance-none;
+    @apply border;
+    @apply rounded;
+    @apply w-full;
+    @apply py-2;
+    @apply px-3;
+    @apply text-grey-darker;
+    @apply leading-tight;
+}
+
+.input:focus {
+    @apply outline-none;
+    @apply shadow-outline;
+}

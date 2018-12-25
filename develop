@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+# Decide which docker-compose file to use.
+COMPOSE_FILE="dev"
+
+# Disable pseudo-TTY allocation for CI (Jenkins)
+TTY=""
+
+# $BUILD_NUMBER comes from Jenkins.
+if [ ! -z "$BUILD_NUMBER" ]; then
+  COMPOSE_FILE="ci"
+  TTY="-T"
+fi
+
+COMPOSE="docker-compose"
+
+if [ $# -gt 0 ]; then
+  if [ "$1" == "vue" ]; then
+    shift 1
+    $COMPOSE run --rm $TTY \
+      -w /var/www/html \
+      node \
+      vue "$@"
+  elif [ "$1" == "npm" ]; then
+      shift 1
+      $COMPOSE run --rm $TTY \
+        -w /var/www/html \
+        node \
+        npm "$@"
+  else
+    $COMPOSE "$@"
+  fi
+else
+  $COMPOSE ps
+fi
